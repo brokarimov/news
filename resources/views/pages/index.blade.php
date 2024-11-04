@@ -30,6 +30,9 @@
                                     <p class="mb-0">{{ $post->like }} <i class="bi bi-hand-thumbs-up"></i> {{ $post->dislike }} <i
                                             class="bi bi-hand-thumbs-down"></i></p>
                                 </div>
+                                <div class="col-auto">
+                                    <p class="mb-0"><i class="fas fa-eye"></i> {{$post->view}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ use App\Models\LikeOrDislike;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\FuncCall;
+use App\Models\View;
 
 class IndexController extends Controller
 {
@@ -28,6 +29,12 @@ class IndexController extends Controller
             $likeordislike = LikeOrDislike::where('user_id', auth()->user()->id)->where('post_id', $post->id)->first();
 
         }
+
+
+        $post->view += 1;
+        $post->save();
+
+
         return view('pages.batafsil', ['models' => $categories, 'post' => $post, 'likeordislike' => $likeordislike]);
 
     }

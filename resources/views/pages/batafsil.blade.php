@@ -7,7 +7,10 @@
 
 <div class="row">
     <div class="col-8">
-        <a href="/" class="btn btn-primary back">Orqaga</a>
+        <div style="display: inline-block;">
+            <a href="/" class="btn btn-primary back" style="display: inline-block;">Orqaga</a>
+            <p style="display: inline-block; margin-left: 10px;"><i class="fas fa-eye"></i> {{$post->view}}</p>
+        </div>
         <img src="{{ asset($post->image) }}" class="center mt-2" alt="">
         <h1 class="center">{{ $post->title }}</h1>
         <h5 class="center">{{ $post->description }}</h5>
@@ -37,8 +40,7 @@
                         @csrf
                         <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
                         <input type="hidden" name="post_id" value="{{$post->id}}">
-                        <button type="submit" name="value" value="1"
-                            class="btn btn-outline-primary me-2">{{ $post->like }}
+                        <button type="submit" name="value" value="1" class="btn btn-outline-primary me-2">{{ $post->like }}
                             <i class="bi bi-hand-thumbs-up"></i></button>
                     </form>
 
@@ -46,8 +48,7 @@
                         @csrf
                         <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
                         <input type="hidden" name="post_id" value="{{$post->id}}">
-                        <button type="submit" name="value" value="2"
-                            class="btn btn-outline-primary">{{ $post->dislike }}
+                        <button type="submit" name="value" value="2" class="btn btn-outline-primary">{{ $post->dislike }}
                             <i class="bi bi-hand-thumbs-down"></i></button>
                     </form>
                 @endif
