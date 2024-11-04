@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\LikeOrDislikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserPostController;
 use App\Http\Controllers\AuthController;
@@ -51,4 +52,8 @@ Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::post('/createComment', [CommentController::class, 'createComment']);
 
+
+// Likes
+Route::post('/like', [LikeOrDislikeController::class, 'like'])->middleware('auth');
+Route::post('/dislike', [LikeOrDislikeController::class, 'dislike'])->middleware('auth');
 

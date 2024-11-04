@@ -54,6 +54,9 @@
     .nav-link {
       color: white
     }
+    .back{
+      margin-left: 85px;
+    }
   </style>
 
 </head>

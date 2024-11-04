@@ -3,15 +3,67 @@
 @section('title', 'Batafsil')
 
 @section('content')
+
+
 <div class="row">
     <div class="col-8">
-        <img src="{{ asset($post->image) }}" class="center" alt="">
+        <a href="/" class="btn btn-primary back">Orqaga</a>
+        <img src="{{ asset($post->image) }}" class="center mt-2" alt="">
         <h1 class="center">{{ $post->title }}</h1>
         <h5 class="center">{{ $post->description }}</h5>
         <p class="center">{{ $post->text }}</p>
         <div class="d-flex justify-content-end">
-            <a href="#" class="btn btn-outline-primary me-2">{{ $post->like }} <i class="bi bi-hand-thumbs-up"></i></a>
-            <a href="#" class="btn btn-outline-primary">{{ $post->dislike }} <i class="bi bi-hand-thumbs-down"></i></a>
+            @if (auth()->check())
+                @if ($likeordislike)
+                    <form action="/like" method="POST">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
+                        <button type="submit" name="value" value="1"
+                            class="btn {{ $likeordislike->value == 1 ? 'btn-primary' : 'btn-outline-primary' }} me-2">{{ $post->like }}
+                            <i class="bi bi-hand-thumbs-up"></i></button>
+                    </form>
+
+                    <form action="/dislike" method="POST">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
+                        <button type="submit" name="value" value="2"
+                            class="btn {{$likeordislike->value == 2 ? 'btn-primary' : 'btn-outline-primary' }}">{{ $post->dislike }}
+                            <i class="bi bi-hand-thumbs-down"></i></button>
+                    </form>
+                @else
+                    <form action="/like" method="POST">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
+                        <button type="submit" name="value" value="1"
+                            class="btn btn-outline-primary me-2">{{ $post->like }}
+                            <i class="bi bi-hand-thumbs-up"></i></button>
+                    </form>
+
+                    <form action="/dislike" method="POST">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
+                        <button type="submit" name="value" value="2"
+                            class="btn btn-outline-primary">{{ $post->dislike }}
+                            <i class="bi bi-hand-thumbs-down"></i></button>
+                    </form>
+                @endif
+
+
+
+            @else
+                <a href="/login" class="btn btn-outline-primary me-2">
+                    {{ $post->like }} <i class="bi bi-hand-thumbs-up"></i>
+                </a>
+
+                <a href="/login" class="btn btn-outline-primary me-2">
+                    {{ $post->dislike }} <i class="bi bi-hand-thumbs-down"></i>
+                </a>
+            @endif
+
         </div>
     </div>
 

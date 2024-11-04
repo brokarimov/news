@@ -22,7 +22,15 @@
                         <div class="card-body">
                             <h5 class="card-title">{{$post->title}}</h5>
                             <p class="card-text truncate-cell">{{$post->description}}</p>
-                            <a href="/batafsil/{{$post->id}}" class="btn btn-primary">Batafsil</a>
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <a href="/batafsil/{{$post->id}}" class="btn btn-primary">Batafsil</a>
+                                </div>
+                                <div class="col-auto">
+                                    <p class="mb-0">{{ $post->like }} <i class="bi bi-hand-thumbs-up"></i> {{ $post->dislike }} <i
+                                            class="bi bi-hand-thumbs-down"></i></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
