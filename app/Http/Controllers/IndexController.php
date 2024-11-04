@@ -15,7 +15,7 @@ class IndexController extends Controller
     {
         $categories = Category::orderBy('tr', 'asc')->get();
         $posts = Post::orderBy('id', 'desc')->paginate(8);
-        
+
         return view('pages.index', ['models' => $categories, 'posts' => $posts]);
     }
 
@@ -23,8 +23,12 @@ class IndexController extends Controller
     {
         $categories = Category::orderBy('tr', 'asc')->get();
         $posts = Post::orderBy('id', 'asc')->get();
-        $likeordislike = LikeOrDislike::where('user_id', auth()->user()->id)->where( 'post_id', $post->id )->first();
-        return view('pages.batafsil', ['models' => $categories, 'post' => $post,'likeordislike'=>$likeordislike]);
+        $likeordislike = null;
+        if (auth()->check()) {
+            $likeordislike = LikeOrDislike::where('user_id', auth()->user()->id)->where('post_id', $post->id)->first();
+
+        }
+        return view('pages.batafsil', ['models' => $categories, 'post' => $post, 'likeordislike' => $likeordislike]);
 
     }
     public function search(Request $request)
