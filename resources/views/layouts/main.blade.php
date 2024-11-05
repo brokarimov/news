@@ -328,6 +328,15 @@
                 </p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="/poll" class="nav-link">
+                <i class="nav-icon far fa-calendar-alt"></i>
+                <p>
+                  Polls
+                  <span class="badge badge-info right"></span>
+                </p>
+              </a>
+            </li>
 
 
           </ul>

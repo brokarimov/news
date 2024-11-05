@@ -5,6 +5,7 @@
 @section('content')
 
 
+
 <div class="row">
     <div class="col-8">
         <div style="display: inline-block;">

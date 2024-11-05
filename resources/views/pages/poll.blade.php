@@ -1,20 +1,21 @@
 @extends('layouts.main')
 
-@section('title', 'Category')
+@section('title', 'Poll')
 
 @section('content')
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Category</h1>
+                    <h1>Poll</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Category</li>
+                        <li class="breadcrumb-item active">Poll</li>
                     </ol>
                 </div>
             </div>
@@ -42,12 +43,12 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
-                    <a href="/category-create" class="btn btn-primary">Create</a>
+                    <a href="/poll-create" class="btn btn-primary">Create</a>
                     <div class="card mt-2">
 
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form action="/category-search" method="GET">
+                            <form action="/poll-search" method="GET">
                                 @csrf
                                 <div class="input-group col-12 mt-2">
                                     <input type="text" name="search" class="form-control search-bar" id="search-bar"
@@ -63,21 +64,20 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Name</th>
-                                        <th>Tartib Raqami</th>
+                                        <th>Title</th>
                                         <th>Status</th>
+                                        <th>Choices</th>
+                                        <th>Create Choices</th>
                                         <th>Options</th>
-
                                     </tr>
                                 </thead>
                                 <tbody id="">
                                     @foreach ($models as $model)
                                         <tr>
                                             <td>{{ $model->id }}</td>
-                                            <td>{{ $model->name }}</td>
-                                            <td>{{ $model->tr }}</td>
+                                            <td>{{ $model->title }}</td>
                                             <td>
-                                                <form action="/active/{{$model->id}}" method="POST">
+                                                <form action="/active_poll/{{$model->id}}" method="POST">
                                                     @csrf
 
                                                     @if ($model->is_active == 1)
@@ -93,6 +93,14 @@
 
                                             </td>
                                             <td>
+                                                @foreach ($model->choices as $choice)
+                                                    <li>{{$choice->title}}</li>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <a href="/choice-create/{{$model->id}}" class="btn btn-primary">Create Choice</a>
+                                            </td>
+                                            <td>
                                                 <div class="d-flex">
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{$model->id}}">
@@ -106,13 +114,12 @@
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                        {{$model->name}}
+                                                                        {{$model->title}}
                                                                     </h1>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <li>Tartib Raqami: {{$model->tr}}</li>
                                                                     <li>Status: @if ($model->is_active == 1)
                                                                         Active
                                                                     @elseif($model->is_active == 2)
@@ -128,10 +135,10 @@
                                                         </div>
                                                     </div>
 
-                                                    <a href="/category-update/{{$model->id}}"
+                                                    <a href="/poll-update/{{$model->id}}"
                                                         class="btn btn-warning mx-2">Update</a>
 
-                                                    <form action="/category/{{$model->id}}" method="POST">
+                                                    <form action="/poll/{{$model->id}}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger">DELETE</button>

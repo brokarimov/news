@@ -3,24 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Poll;
 use Illuminate\Http\Request;
-use App\Models\Category;
-class CategoryController extends Controller
+
+class PollController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->role == 'admin') {
-            $categories = Category::orderBy('id', 'asc')->paginate(5);
-            return view('pages.category', ['models' => $categories]);
-        } else {
-            return redirect('/login');
-        }
-
+        $polls = Poll::orderBy('id', 'asc')->paginate(5);
+        return view('pages.poll', ['models'=>$polls]);
     }
+
     public function create()
     {
         if (auth()->user()->role == 'admin') {
-            return view('pages.create.category-create');
+            return view('pages.create.poll-create');
         } else {
             return redirect('/login');
         }
@@ -30,67 +27,66 @@ class CategoryController extends Controller
     {
         if (auth()->user()->role == 'admin') {
             $request->validate([
-                'name' => 'required|max:255',
-                'tr' => 'required|max:255',
+                'title' => 'required|max:255',
+                
             ]);
             $data = $request->all();
             // dd($data);
-            Category::create($data);
-            return redirect('/category')->with('success', 'Ma\'lumot qo\'shildi!');
+            Poll::create($data);
+            return redirect('/poll')->with('success', 'Ma\'lumot qo\'shildi!');
         } else {
             return redirect('/login');
         }
 
     }
 
-    public function update_category(Category $category)
+    public function update_poll(Poll $poll)
     {
         // dd($user);
         if (auth()->user()->role == 'admin') {
-            return view('pages.update.category-update', ['category' => $category]);
+            return view('pages.update.poll-update', ['poll' => $poll]);
         } else {
             return redirect('/login');
         }
 
     }
 
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Poll $poll)
     {
         if (auth()->user()->role == 'admin') {
             $request->validate([
-                'name' => 'required|max:255',
-                'tr' => 'required|max:255',
+                'title' => 'required|max:255',
             ]);
             $data = $request->all();
             // dd($university);
-            $category->update($data);
-            return redirect('/category')->with('warning', 'Ma\'lumot yangilandi!');
+            $poll->update($data);
+            return redirect('/poll')->with('warning', 'Ma\'lumot yangilandi!');
         } else {
             return redirect('/login');
         }
 
     }
 
-    public function delete(Category $category)
+    public function delete(Poll $poll)
     {
         // dd($user);
         if (auth()->user()->role == 'admin') {
-            $category->delete();
-            return redirect('/category')->with('danger', 'Ma\'lumot o\'chirildi!');
+            $poll->delete();
+            return redirect('/poll')->with('danger', 'Ma\'lumot o\'chirildi!');
         } else {
             return redirect('/login');
         }
 
     }
 
-    public function active(Request $request, Category $active)
+    public function active(Request $request, Poll $active)
     {
         if (auth()->user()->role == 'admin') {
             $data = $request->all();
             // dd($data);
             $active->update($data);
 
-            return redirect('/category')->with('warning', 'Ma\'lumot yangilandi!');
+            return redirect('/poll')->with('warning', 'Ma\'lumot yangilandi!');
         } else {
             return redirect('/login');
         }
@@ -102,9 +98,9 @@ class CategoryController extends Controller
     public function search(Request $request)
     {
         if (auth()->user()->role == 'admin') {
-            $models = Category::where('name', 'like', '%' . $request->search . '%')->orderBy('id', 'asc')->paginate(5);
+            $models = Poll::where('title', 'like', '%' . $request->search . '%')->orderBy('id', 'asc')->paginate(5);
 
-            return view('pages.category', ['models' => $models]);
+            return view('pages.poll', ['models' => $models]);
         } else {
             return redirect('/login');
         }

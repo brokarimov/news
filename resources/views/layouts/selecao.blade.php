@@ -53,10 +53,18 @@
       width: 80%;
     }
 
+    .center2 {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
     .nav-link {
       color: white
     }
-    .back{
+
+    .back {
       margin-left: 85px;
     }
   </style>
@@ -88,6 +96,9 @@
                 @if (auth()->check() && auth()->user()->role == 'admin')
           <li><a href="/category">Admin Page</a></li>
         @endif
+
+                <li><a href="/poll_Index">So'rovnomalar</a></li>
+
               </ul>
 
               <ul class="nav pull-right">
