@@ -46,12 +46,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function comments()
+    public function roles()
     {
-        return $this->hasMany(Comment::class, 'user_id');
-    }
-    public function LikeOrDislike()
-    {
-        return $this->hasMany(LikeOrDislike::class, 'user_id');
+        return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id');
     }
 }

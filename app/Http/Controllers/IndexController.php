@@ -18,7 +18,7 @@ class IndexController extends Controller
     {
         $categories = Category::orderBy('tr', 'asc')->get();
         $posts = Post::orderBy('id', 'desc')->paginate(8);
-
+        
         return view('pages.index', ['models' => $categories, 'posts' => $posts]);
     }
 

@@ -81,59 +81,56 @@
                                                     @csrf
 
                                                     @if ($model->is_active == 1)
-                                                        Active:<br>
-                                                        <button class="btn btn-primary" name="is_active" value="2">Make
+                                                        
+                                                        <button class="btn btn-primary" name="is_active" value="2">
                                                             Inactive</button>
                                                     @elseif($model->is_active == 2)
-                                                        Inactive:<br>
-                                                        <button class="btn btn-danger" name="is_active" value="1">Make
+                                                        
+                                                        <button class="btn btn-danger" name="is_active" value="1">
                                                             Active</button>
                                                     @endif
                                                 </form>
 
                                             </td>
                                             <td>
-                                                @foreach ($model->choices as $choice)
-                                                    <li>{{$choice->title}}</li>
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                <a href="/choice-create/{{$model->id}}" class="btn btn-primary">Create Choice</a>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal{{$model->id}}">
-                                                        Show
-                                                    </button>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal{{$model->id}}">
+                                                    Choices
+                                                </button>
 
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="exampleModal{{$model->id}}" tabindex="-1"
-                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                        {{$model->title}}
-                                                                    </h1>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <li>Status: @if ($model->is_active == 1)
-                                                                        Active
-                                                                    @elseif($model->is_active == 2)
-                                                                        Inactive:
-                                                                    @endif
-                                                                    </li>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
-                                                                </div>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal{{$model->id}}" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                                    {{$model->title}}
+                                                                </h1>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                @foreach ($model->choices as $choice)
+                                                                    <li>{{$choice->title}}</li>
+                                                                @endforeach
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <a href="/choice-create/{{$model->id}}" class="btn btn-primary">Create
+                                                    Choice</a>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex">
+
 
                                                     <a href="/poll-update/{{$model->id}}"
                                                         class="btn btn-warning mx-2">Update</a>

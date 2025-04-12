@@ -40,28 +40,43 @@ class ChoiceController extends Controller
         $poll_id = $request->input('poll_id');
         $choice_id = $request->input('choice_id');
         $user_ip = $request->ip();
-        $data = [
-            'poll_id' => $poll_id,
-            'choice_id'=> $choice_id,
-            'user_ip' => $user_ip
-        ];
 
-        Answer::create($data);
+        $existAnswer = Answer::where('poll_id', $poll_id)
+            ->where('choice_id', $choice_id)
+            ->where('user_ip', $user_ip)
+            ->first();
+
+        if (!$existAnswer) {
+            $data = [
+                'poll_id' => $poll_id,
+                'choice_id' => $choice_id,
+                'user_ip' => $user_ip
+            ];
+
+            Answer::create($data);
+        }
+
         return redirect('/poll_Index');
     }
 
     public function deleteAnswer(Request $request)
-{
-    $id = $request->id;
-    $user_ip = $request->ip();
-    
-    $answer = Answer::findOrFail($id);
-
-    if ($answer->user_ip === $user_ip) {
-        $answer->delete();
-        return redirect('/poll_Index');
-    } else {
-        return redirect('/poll_Index');
+    {
+        $choice_id = $request->choice_id;
+        $user_ip = $request->ip();
+        $poll_id = $request->poll_id;
+        
+        $answer = Answer::where('poll_id', $poll_id)
+            ->where('user_ip', $user_ip)
+            ->first();
+        if ($answer) {
+            if ($answer->user_ip === $user_ip) {
+                $answer->delete();
+                return redirect('/poll_Index');
+            } else {
+                return redirect('/poll_Index');
+            }
+        } else {
+            return redirect('/poll_Index');
+        }
     }
-}
 }

@@ -9,12 +9,10 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->role == 'admin') {
-            $categories = Category::orderBy('id', 'asc')->paginate(5);
-            return view('pages.category', ['models' => $categories]);
-        } else {
-            return redirect('/login');
-        }
+
+        $categories = Category::orderBy('id', 'asc')->paginate(5);
+        return view('pages.category', ['models' => $categories]);
+
 
     }
     public function create()

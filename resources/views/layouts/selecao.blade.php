@@ -87,15 +87,15 @@
                 <li><a href="/">Barchasi</a></li>
 
                 @foreach ($models as $model)
-          @if ($model->is_active == 1)
-        <li><a href="{{ route('posts.by.category', $model->id) }}">{{$model->name}}</a></li>
+                @if ($model->is_active == 1)
+                <li><a href="{{ route('posts.by.category', $model->id) }}">{{$model->name}}</a></li>
 
-      @endif
+                @endif
 
-        @endforeach
+                @endforeach
                 @if (auth()->check() && auth()->user()->role == 'admin')
-          <li><a href="/category">Admin Page</a></li>
-        @endif
+                <li><a href="/category">Admin Page</a></li>
+                @endif
 
                 <li><a href="/poll_Index">So'rovnomalar</a></li>
 
@@ -103,18 +103,18 @@
 
               <ul class="nav pull-right">
                 @if (auth()->check())
-          <li>
-            <form action="/logout" method="POST">
-            @csrf
-            <button type="submit" class="nav-link">
-              Logout
-            </button>
-            </form>
-          </li>
-        @else
-      <li><a href="/login">Login</a></li>
-      <li><a href="/register">Register</a></li>
-    @endif
+                <li>
+                  <form action="/logout" method="POST">
+                    @csrf
+                    <button type="submit" class="nav-link">
+                      Logout
+                    </button>
+                  </form>
+                </li>
+                @else
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+                @endif
 
 
 
@@ -134,7 +134,6 @@
     <div class="row">
       <div class="col-12">
         @yield('content')
-
       </div>
     </div>
   </div>
